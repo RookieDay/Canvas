@@ -1,6 +1,6 @@
   外部调用渲染函数 读取样式和路径 把图会知道屏幕上
 
-  
+
   var cvs = document.getElementById('cvs'); // 拿到Canvas标签
   var ctx = cvs.getContext('2d');
 
@@ -160,7 +160,7 @@ ctx.fill(); // 填充路径
     var ctx = cvs.getContext('2d');
    
     // strokeRect和fillRect不渲染路径，而是渲染参数所决定的那个矩形
-    //这是两个渲染函数 和路径没有关系
+    //自带矩形绘制函数  这是两个渲染函数 和路径没有关系
     ctx.strokeRect(50, 50, 100, 100); 描边了一个矩形 外部调用渲染函数 读取样式和路径 把图会知道屏幕上
     ctx.fillStyle = 'red';  但是渲染的时候也可以有样式 上下文填充样式改了 是红色
     ctx.fillRect(50, 200, 100, 100);  填充了一个矩形 默认是黑色 这个时候读到的是红色
@@ -171,4 +171,42 @@ ctx.fill(); // 填充路径
     ctx.fill();
 
     // 清除矩形
-    ctx.clearRect(75, 225, 50, 50);
+    ctx.clearRect(75, 225, 50, 50);  清除了那块矩形区域 动画可以做
+
+
+
+    var cvs = document.getElementById('cvs'); // 拿到Canvas标签
+    var ctx = cvs.getContext('2d');
+
+    function degToArc(deg) {
+        return deg / 180 * Math.PI;
+    }
+
+//    ctx.moveTo(100,100);  他会先链接到圆弧的起点处 在进行圆的绘制
+
+    ctx.beginPath();
+    ctx.arc(200, 200, 50,degToArc(0),degToArc(360),true);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(400, 200, 50,degToArc(0),degToArc(360),true);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(400, 400, 50,degToArc(0),degToArc(360),true);
+
+    ctx.fillStyle='red';
+//    ctx.fill();
+    ctx.stroke();
+
+
+    fill
+    stroke  不传参 直接调用的， 上下文路径 样式fillStyle strokeStyle strokelineWidth
+
+    fillRect
+    strokeRect 从上下文获取样式  获取传来的矩形参数
+
+
+    fillText
+    strokeText 渲染文字的时候 从上下文获取style样式/font, lineWidth对此没有影响
+
