@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>矩形对象</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500"></canvas>
+<script>
+    var cvs = document.getElementById('cvs'); // 拿到Canvas标签
+    // 拿到绘图上下文：
+    // 绘制2d图形，要传递2d作为参数
+    // 绘制3d图形，要传递webgl作为参数
+    var ctx = cvs.getContext('2d');
+
+    // 矩形绘制函数的封装
+    // Rect是Rectangle的缩写，矩形的意思
+    function strokeRect(ctx, x, y, w, h) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + w, y);
+        ctx.lineTo(x + w, y + h);
+        ctx.lineTo(x, y + h);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
+    function Rect(ctx, x, y, w, h) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+
+    Rect.prototype.draw = function(){
+        strokeRect(this.ctx,this.x,this.y,this.w,this.h);
+    };
+
+    var rect = new Rect(ctx,50,50,50,50);
+
+    var displayObjects = [];
+    displayObjects.push(rect);
+
+    setInterval(function(){
+        ctx.clearRect(0,0,1000,500);
+        rect.x = rect.x+1;
+
+        displayObjects.forEach(function(displayObject){
+            displayObject.draw();
+        })
+    },25)
+
+</script>
+</body>
+</html>
