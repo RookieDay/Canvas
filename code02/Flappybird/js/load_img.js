@@ -13,6 +13,6 @@ function listener() {
 imgs.forEach(function(imgurl) {
     var img = new Image();
     img.addEventListener('load', listener);
-    img.src = '../imgs' + imgurl;
+    img.src = './imgs/' + imgurl;
     imgObjects.push(img);
 })

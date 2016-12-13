@@ -20,6 +20,10 @@ Bird.prototype.draw = function() {
         52 * this.index, 0, 52, 45,
         // -26和-22.5用于：让鸟的图片的中心点和当前坐标系的中心点重合
         // 因为rotate是以坐标系的原点为中心点旋转的
-        -26, -22.5, 52, 45
+        this.x, this.y, 52, 45
     );
+}
+
+Bird.prototype.fly = function() {
+    this.speed = -0.3;
 }

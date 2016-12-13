@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FlappyBird</title>
+</head>
+
+<body>
+    <canvas id="cvs" width="800" height="600" style="border: 1px solid black;"></canvas>
+    <script src="./js/load_img.js"></script>
+    <script src="./js/bird.js"></script>
+    <script src="sky.js"></script>
+    <script src="land.js"></script>
+    <script src="pipe.js"></script>
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+
+        function main() {
+            console.log('全部加载完成,已加载：', loadCount);
+
+            // 游戏结束的标记
+
+
+            // 程序的主循环
+            var bird = new Bird();
+            cvs.addEventListener('click', function(event) {
+                var x = event.layerX;
+                var y = event.layerY;
+                if (x > 30 && x < 130 && y > 30 && y < 80) {
+                    bird.fly();
+                }
+            })
+
+            var lastTime = Date.now();
+
+            function loop() {
+                // 拿到间隔时间
+                var now = Date.now();
+                var dt = now - lastTime;
+                // 这是为了下一帧做准备
+                lastTime = now;
+                // 清空屏
+                ctx.clearRect(0, 0, 800, 600);
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(30, 30, 100, 50);
+                bird.update(dt);
+                bird.draw();
+                // 递归再次调用自身
+                requestAnimationFrame(loop);
+
+            }
+            loop();
+
+        }
+    </script>
+</body>
+
+</html>
