@@ -10,7 +10,7 @@
     <canvas id="cvs" width="800" height="600" style="border: 1px solid black;"></canvas>
     <script src="./js/load_img.js"></script>
     <script src="./js/bird.js"></script>
-    <script src="sky.js"></script>
+    <script src="./js/sky.js"></script>
     <script src="land.js"></script>
     <script src="pipe.js"></script>
     <script>
@@ -25,14 +25,8 @@
 
 
             // 程序的主循环
-            var bird = new Bird();
-            cvs.addEventListener('click', function(event) {
-                var x = event.layerX;
-                var y = event.layerY;
-                if (x > 30 && x < 130 && y > 30 && y < 80) {
-                    bird.fly();
-                }
-            })
+            var bird = new Bird(imgObjects[0], cvs);
+
 
             var lastTime = Date.now();
 
@@ -44,8 +38,8 @@
                 lastTime = now;
                 // 清空屏
                 ctx.clearRect(0, 0, 800, 600);
-                ctx.fillStyle = 'blue';
-                ctx.fillRect(30, 30, 100, 50);
+                // ctx.fillStyle = 'blue';
+                // ctx.fillRect(30, 30, 100, 50);
                 bird.update(dt);
                 bird.draw();
                 // 递归再次调用自身
