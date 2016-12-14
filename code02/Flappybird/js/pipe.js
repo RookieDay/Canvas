@@ -19,7 +19,7 @@ Pipe.prototype.draw = function() {
     ctx.drawImage(this.img2, this.x, this.pipe1Y - 420);
     // 对应下面的管道的坐标
     ctx.drawImage(this.img1, this.x, this.pipe1Y + 150);
-
+    // 想象坐标系在左上角 确定管道的点坐标
     ctx.rect(this.x, this.pipe1Y - 420, 52, 420);
     ctx.rect(this.x, this.pipe1Y + 150, 52, 420);
 }
