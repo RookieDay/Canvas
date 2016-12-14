@@ -74,6 +74,11 @@ Scene1.prototype.update = function(dt) {
             this.cast = 0; //当前的
             casting = 0; //全局
             currIndex += 1; //全局
+            var _this = this;
+            setTimeout(function() {
+                _this.y = 0;
+                _this.x = 500;
+            }, 50);
         }
     } else if (this.cast == 2) { //什么也不做
         this.cast = 0; //当前的
@@ -127,22 +132,24 @@ function Scene2(x, y) {
 Scene2.prototype.update = function(dt) {
     if (this.cast == 1) { // 第二个场景不需要向上离场 因为现在已经没了
         this.cast = 0 //当前场景的离场动画 变成未离场
-        this.casting = 0; //全局的离场标识  变为未离场
+        casting = 0; //全局的离场标识  变为未离场
     } else if (this.cast == 2) {
-        this.y += dt * 0.5;
+        this.y += dt * 0.1;
         if (this.y > 600) {
             this.cast = 0;
-            this.casting = 0;
+            casting = 0;
             currIndex -= 1; //第二个场景前面有一个场景  完成场景本身的动画设置
 
         }
     }
 
+    if (this.cast == 0) {
 
-    if (this.y > 0) { //场景的上场动画
-        this.y -= dt * 0.1;
-    } else {
-        this.y = 0;
+        if (this.y > 0) { //场景的上场动画
+            this.y -= dt * 0.1;
+        } else {
+            this.y = 0;
+        }
     }
 }
 Scene2.prototype.draw = function() {
