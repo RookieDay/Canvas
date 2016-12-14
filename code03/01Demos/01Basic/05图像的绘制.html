@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>05图像的绘制</title>
+    <style>
+        html, body {
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500"
+        style='width: 500px;border:1px solid silver'>
+    浏览器不支持Canvas……
+</canvas>
+
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    // 获取img标签
+    var img = new Image();
+
+    // 必须等待img标签的源文件加载完毕才能开始用它来绘制
+    img.addEventListener('load', function () {
+        // 绘制图像的函数
+        // 三参数用法：
+        // ---img：有图像的标签
+        // ---dx,dy:要绘制到的点
+//        ctx.drawImage(img, 5, 5);
+
+        // 五参数用法：
+        // ---img：。。。
+        // ---dx,dy,dw,dh:传入目标的矩形
+//        ctx.drawImage(img,
+//                0, 0, 214, 300)
+
+        // 九参数用法：
+//        ctx.drawImage(img,
+//                192, 120, 200, 200,
+//                0, 0, 200, 200)
+
+        function drawImage(img, sRect, dRect) {
+            ctx.drawImage(img,
+                    sRect.x, sRect.y, sRect.w, sRect.h,
+                    dRect.x, dRect.y, dRect.w, dRect.h
+            )
+        }
+
+        var sRect = {
+            x: 192,
+            y: 120,
+            w: 200,
+            h: 200
+        };
+        var dRect = {
+            x: 0,
+            y: 0,
+            w: 200,
+            h: 200
+        };
+        drawImage(img, sRect, dRect);
+
+        var cvsOutscreen = document.createElement('canvas');
+        cvsOutscreen.width = 200;
+        cvsOutscreen.height = 200;
+        var ctxOs = cvsOutscreen.getContext('2d');
+        ctxOs.drawImage(cvs,
+                0, 0, 200, 200,
+                0, 0, 200, 200);
+
+        ctx.drawImage(cvsOutscreen, 300, 0);
+
+
+    });
+    img.src = 'image.jpg';
+
+    ctx.stroke();
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>07精灵对象增加控制</title>
+    <style>
+        html, body {
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style='border:1px solid silver'>
+    浏览器不支持Canvas……
+</canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    /*
+     * 07给精灵增加控制
+     * 1. 监听键盘事件
+     * */
+
+    function Sprite(img, x, y, w, h, direction, speed) {
+        this.currentFrame = 0; // 当前帧
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.direction = direction;
+        this.img = img;
+        this.timeSum = 0; //
+        this.speed = speed;
+    }
+    // 设置sw和sh为小图的宽高。
+    Sprite.prototype.sw = 256;
+    Sprite.prototype.sh = 256;
+    Sprite.prototype.draw = function (dt) {
+        this.update(dt);
+        // 调用drawImage把小图绘制到Canvas上
+        ctx.drawImage(this.img,
+                256 * this.currentFrame, 256 * this.direction, this.sw, this.sh,
+                this.x, this.y, this.w, this.h
+        )
+    };
+    Sprite.prototype.update = function (dt) {
+        // 当前的时间累加计数器，加上这一次的两帧间隔
+        this.timeSum += dt;
+        // 处理精灵的属性的更新逻辑
+        // 1. 更新currentFrame（当前帧）
+        // this.currentFrame = (this.currentFrame + 1) % 8; // 肯定不行
+        // 目标：保证小人100毫秒才动一次
+        // 方案：在sprite对象上，加一个属性，用来记录两帧（全局的帧）间隔的累加
+        // 每当累加超过100时，切换到下一帧（精灵的帧）。
+        if (this.timeSum > 100) {
+            this.currentFrame = (this.currentFrame + 1) % 8;
+            this.timeSum -= 100;
+        }
+        switch (this.direction) {
+            case 0: // left
+                this.x = this.x - this.speed * dt;
+                break;
+            case 2: // up
+                this.y = this.y - this.speed * dt;
+                break;
+            case 4: // right
+                this.x = this.x + this.speed * dt;
+                break;
+            case 6: // down
+                this.y = this.y + this.speed * dt;
+                break;
+
+        }
+    };
+
+    var img = new Image();
+    img.addEventListener('load', function () {
+        // 等图片加载完成之后，执行下面的代码
+        var sprite = new Sprite(img, 50, 50, 300, 300, 0, 0.1); // 创建一个精灵
+        // 更改精灵的状态，看看效果
+        sprite.currentFrame = 2;
+        sprite.direction = 4;
+
+        var lastTime = Date.now();
+        setInterval(function () {
+            var now = Date.now();
+            var dt = now - lastTime; // 两帧间隔的时间
+            // 为了下一帧时能够使用，所以“上一帧时间”就被设置成了当前时间
+            lastTime = now;
+            // 清空屏幕，否则会叠加绘制到上一帧的图像上，形成重影
+            ctx.clearRect(0, 0, 500, 500);
+            sprite.draw(dt);
+        }, 1000 / 60);
+
+        window.addEventListener('keydown', function (event) {
+            switch (event.which) {
+                case 38 : // 上箭头按下
+                    console.log('上');
+                    sprite.direction = 2;
+                    break;
+                case 40: // 下箭头按下
+                    console.log('下');
+                    sprite.direction = 6;
+                    break;
+                case 37: // 左箭头按下
+                    console.log('左');
+                    sprite.direction = 0;
+                    break;
+                case 39 : // 右箭头按下
+                    console.log('右');
+                    sprite.direction = 4;
+                    break;
+            }
+        })
+
+    });
+    img.src = './estell.png'
+
+
+</script>
+</body>
+</html>

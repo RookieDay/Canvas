@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>06帧动画</title>
+    <style>
+        html, body {
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style='border:1px solid silver'>
+    浏览器不支持Canvas……
+</canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+    var img = new Image();
+    img.src = "estell.png";
+    img.addEventListener('load', function () {
+        var count = 0;
+        var direction = 0;
+
+
+
+
+        var dRect = {
+            x:0,
+            y:0,
+            w:256,
+            h:256
+        };
+
+        function drawImage(img, sRect, dRect) {
+            ctx.drawImage(img,
+                  sRect.x, sRect.y, sRect.w, sRect.h,
+                    dRect.x, dRect.y, dRect.w, dRect.h
+            )
+        };
+
+        setInterval(function () {
+            count = (count + 1) % 8;
+            ctx.clearRect(0, 0, 500, 500);
+            var sRect = {
+                x:count * 256 , // 横向选择
+                y:direction*256, // 选择小人的朝向
+                w:256,
+                h:256
+            };
+            dRect.x = dRect.x - 10;
+            drawImage(img,sRect,dRect);
+        }, 100)
+    })
+
+
+</script>
+</body>
+</html>

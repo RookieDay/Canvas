@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置形状绘制函数</title>
+</head>
+<body>
+<canvas id="layer" width="1000" height="500"></canvas>
+<script>
+    // 第一步：获取绘图上下文
+    var cvs = document.getElementById('layer');
+    var ctx = cvs.getContext('2d');
+    // 第二步：绘图
+    // 开启新的路径
+    ctx.beginPath();
+    ctx.rect(50,50,50,50);
+    ctx.arc(150,50,25,30,210); // 注意点的位置
+    // 渲染路径
+    ctx.stroke();
+
+    ctx.fillRect(50,150,50,50);
+    ctx.strokeRect(150,150,50,50);
+    ctx.fillRect(250,150,50,50);
+    ctx.clearRect(255,155,40,40);
+</script>
+</body>
+</html>

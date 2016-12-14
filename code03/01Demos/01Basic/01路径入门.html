@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas路径入门</title>
+</head>
+<body>
+<canvas id="layer" width="1000" height="500"></canvas>
+<script>
+    // 第一步：获取绘图上下文
+    var cvs = document.getElementById('layer');
+    var ctx = cvs.getContext('2d');
+    // 第二步：绘图
+    // 开启新的路径
+    ctx.beginPath();
+    // moveTo和lineTo绘制多边形
+    ctx.moveTo(50, 50);
+    ctx.lineTo(100, 100);
+    ctx.lineTo(0, 100);
+    // 闭合路径
+    ctx.closePath();
+    // 设置渲染样式
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 3;
+    // 渲染路径
+    ctx.stroke();
+</script>
+</body>
+</html>

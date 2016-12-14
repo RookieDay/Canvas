@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+<body>
+<canvas id="cvs" width="800" height="600" style="border: 1px solid black;"></canvas>
+<script src="load_imgs.js"></script>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    function ImageObject(img, x, y, w, h) {
+        this.img = img;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+    ImageObject.prototype.draw = function () {
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    };
+
+    function TextObject(text, fontSize, x, y, w) {
+        this.cols = Math.floor(w / fontSize);
+        this.textLines = [];
+        while (text.length > 0) {
+            this.textLines.push(text.substr(0, this.cols));
+            text = text.substr(this.cols);
+        }
+        this.x = x;
+        this.y = y;
+        this.font = fontSize + 'px 微软雅黑';
+        this.fontSize = fontSize;
+    }
+    TextObject.prototype.draw = function () {
+        var y = this.y;
+        ctx.save();
+        ctx.font = this.font;
+        var _this = this;
+        this.textLines.forEach(function (text) {
+            ctx.fillText(text, _this.x, y);
+            y = y + _this.fontSize + 5;
+        });
+        ctx.restore();
+    };
+
+    function Scene(x, y) {
+        this.x = x;
+        this.y = y;
+        this.runTime = 0;
+        this.displayObjects = [];
+        this.displayObjects.push(new ImageObject(imgObjects[0], 50, 50, 616, 171.5));
+        this.imgs = {
+            img0: this.displayObjects[0]
+        }
+    }
+
+    Scene.prototype.draw = function () {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.globalAlpha = 0.5;
+        this.displayObjects.forEach(function (displayObject) {
+            displayObject.draw();
+        });
+        ctx.restore();
+    };
+
+    Scene.prototype.update = function (dt) {
+        this.runTime += dt;
+        if (this.runTime < 1000) {
+            this.imgs.img0.y -= dt * 0.1;
+        }
+    };
+
+    var scene = new Scene(0, 300);
+
+    function main() {
+        console.log('全部加载完成,已加载：', loadCount);
+
+        var lastTime = Date.now();
+
+        var str = "3D Press";
+
+        function loop() {
+            var now = Date.now();
+            var dt = now - lastTime;
+            lastTime = now;
+
+            ctx.clearRect(0, 0, 1500, 600);
+
+            scene.update(dt);
+            scene.draw();
+            // 递归再次调用自身
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+    }
+
+</script>
+</body>
+</html>

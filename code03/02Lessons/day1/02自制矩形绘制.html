@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02自制矩形绘制</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500"  ></canvas>
+<script>
+    var cvs = document.getElementById('cvs'); // 拿到Canvas标签
+    // 拿到绘图上下文：
+    // 绘制2d图形，要传递2d作为参数
+    // 绘制3d图形，要传递webgl作为参数
+    var ctx = cvs.getContext('2d');
+
+    // 矩形绘制函数的封装
+    // Rect是Rectangle的缩写，矩形的意思
+    function strokeRect(ctx, x, y, w, h) {
+//        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + w, y);
+        ctx.lineTo(x + w, y + h);
+        ctx.lineTo(x, y + h);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'red';
+    strokeRect(ctx, 10, 100, 150, 50);
+
+    alert();
+//    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+
+    ctx.stroke();
+    strokeRect(ctx,40,10,50,50);
+
+</script>
+</body>
+</html>

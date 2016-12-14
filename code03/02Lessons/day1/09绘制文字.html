@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绘制文字</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    ctx.fillRect(298, 98, 4, 4);
+    ctx.fillStyle = 'red';
+    ctx.font = "50px 微软雅黑";
+    ctx.textAlign = 'left';
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("hello world", 300, 100);
+
+
+</script>
+</body>
+</html>

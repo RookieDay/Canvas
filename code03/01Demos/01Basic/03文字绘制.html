@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>04文字的绘制</title>
+    <style>
+        html, body {
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500"
+        style='border:1px solid silver'>
+    浏览器不支持Canvas……
+</canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(0, 250);
+    ctx.lineTo(500, 250);
+    ctx.moveTo(250, 0);
+    ctx.lineTo(250, 500);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 3;
+
+
+    var textInfo = ctx.measureText('hello world').width;
+    console.log(textInfo);
+
+    ctx.font = '50px 微软雅黑';
+    //    ctx.strokeText('hello world', 250, 250);
+
+    ctx.fillStyle = 'green';
+
+    // 文字的垂直对齐
+    // top:顶端对齐
+    // bottom:底端对齐
+    // middle:居中对齐
+    // hanging：悬挂对齐
+    // 默认：表意基线
+    // ideographic:写意基线
+    ctx.textBaseline = 'middle';
+
+    // 文字对齐
+    // 左对齐：left
+    // 右对齐：right
+    // 居中：center
+    ctx.textAlign = 'center';
+
+    var textInfo = ctx.measureText('hello world').width;
+
+    console.log(textInfo);
+
+    ctx.fillText('hello world你好世界', 250, 250, 250);
+
+
+    ctx.stroke();
+    ctx.strokeStyle = 'red';
+
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01粒子</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(0, 0, 2, 1);
+
+    var imageData = ctx.getImageData(0, 0, 3, 3);
+
+
+    console.log(imageData);
+</script>
+</body>
+</html>

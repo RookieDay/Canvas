@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas绘制圆弧</title>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    var cvs = document.getElementById('cvs'); // 拿到Canvas标签
+    // 拿到绘图上下文：
+    // 绘制2d图形，要传递2d作为参数
+    // 绘制3d图形，要传递webgl作为参数
+    var ctx = cvs.getContext('2d');
+
+    function degToArc(deg) {
+        return deg / 180 * Math.PI;
+    }
+
+//    ctx.moveTo(100,100);
+
+    ctx.beginPath();
+    ctx.arc(200, 200, 50,degToArc(0),degToArc(360),true);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(400, 200, 50,degToArc(0),degToArc(360),true);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(400, 400, 50,degToArc(0),degToArc(360),true);
+
+    ctx.fillStyle='red';
+//    ctx.fill();
+
+
+    ctx.stroke();
+</script>
+</body>
+</html>

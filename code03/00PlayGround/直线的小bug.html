@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>直线的bug</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    ctx.lineWidth = 1;
+
+    ctx.moveTo(50,50.5);
+    ctx.lineTo(100,50.5);
+
+    ctx.fillRect(50,52,50,1);
+
+    ctx.stroke();
+</script>
+</body>
+</html>
